@@ -47,3 +47,7 @@ gem "active_model_serializers"
 gem 'devise'
 
 gem 'devise_token_auth'
+
+gem 'typhoeus'
+
+gem 'dotenv'
