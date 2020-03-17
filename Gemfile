@@ -50,4 +50,4 @@ gem 'devise_token_auth'
 
 gem 'typhoeus'
 
-gem 'dotenv'
+gem 'dotenv-rails'
