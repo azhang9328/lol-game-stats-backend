@@ -9,17 +9,15 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.integer :stacks
       t.string :from, array: true, default: []
       t.string :into, array: true, default: []
-      t.jsonb :image
+      t.jsonb :image_instructions
+      t.string :full_image
+      t.string :small_image
+      t.string :tiny_image
       t.jsonb :gold
       t.string :tags, array: true, default: []
-      # t.string :maps
       t.jsonb :stats
       t.jsonb :effect
-      # t.integer :specialRecipe
-      # t.boolean :hideFromAll
       t.boolean :inStore
-      # t.boolean :consumed
-      # t.boolean :consumeOnFull
       t.string :requiredChampion
       t.string :requiredAlly
       t.integer :depth

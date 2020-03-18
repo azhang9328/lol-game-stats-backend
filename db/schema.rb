@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_042241) do
+ActiveRecord::Schema.define(version: 2020_03_18_045639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,11 +39,23 @@ ActiveRecord::Schema.define(version: 2020_03_18_042241) do
   end
 
   create_table "gpcs", force: :cascade do |t|
-    t.integer "champion_id"
-    t.integer "game_id"
-    t.integer "player_id"
+    t.bigint "champion_id", null: false
+    t.bigint "game_id", null: false
+    t.bigint "summoner_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["champion_id"], name: "index_gpcs_on_champion_id"
+    t.index ["game_id"], name: "index_gpcs_on_game_id"
+    t.index ["summoner_id"], name: "index_gpcs_on_summoner_id"
+  end
+
+  create_table "gpcs_runes", force: :cascade do |t|
+    t.bigint "gpc_id", null: false
+    t.bigint "rune_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gpc_id"], name: "index_gpcs_runes_on_gpc_id"
+    t.index ["rune_id"], name: "index_gpcs_runes_on_rune_id"
   end
 
   create_table "gpcs_spells", force: :cascade do |t|
@@ -62,7 +74,10 @@ ActiveRecord::Schema.define(version: 2020_03_18_042241) do
     t.integer "stacks"
     t.string "from", default: [], array: true
     t.string "into", default: [], array: true
-    t.jsonb "image"
+    t.jsonb "image_instructions"
+    t.string "full_image"
+    t.string "small_image"
+    t.string "tiny_image"
     t.jsonb "gold"
     t.string "tags", default: [], array: true
     t.jsonb "stats"
@@ -75,16 +90,23 @@ ActiveRecord::Schema.define(version: 2020_03_18_042241) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "masteries", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "passives", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.jsonb "image"
-    t.integer "champion_id"
+    t.bigint "champion_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["champion_id"], name: "index_passives_on_champion_id"
+  end
+
+  create_table "runes", force: :cascade do |t|
+    t.integer "riot_id"
+    t.string "name"
+    t.string "icon"
+    t.string "shortDesc"
+    t.string "longDesc"
+    t.string "rune_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -137,6 +159,11 @@ ActiveRecord::Schema.define(version: 2020_03_18_042241) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "gpcs", "champions"
+  add_foreign_key "gpcs", "games"
+  add_foreign_key "gpcs", "summoners"
+  add_foreign_key "gpcs_runes", "gpcs"
+  add_foreign_key "gpcs_runes", "runes"
   add_foreign_key "gpcs_spells", "gpcs"
   add_foreign_key "gpcs_spells", "spells"
 end

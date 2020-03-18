@@ -19,8 +19,6 @@ module Lol
                     end
 
                     passive_parser.parse_champ_passive(passive, new_champ)
-
-                    byebug
                 end
             end
         end

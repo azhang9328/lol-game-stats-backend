@@ -4,8 +4,8 @@ class CreatePassives < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :description
       t.jsonb :image
-      t.integer :champion_id
-
+      t.references :champion
+      
       t.timestamps
     end
   end

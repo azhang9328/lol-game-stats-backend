@@ -1,9 +1,10 @@
 class CreateGpcs < ActiveRecord::Migration[6.0]
     def change
       create_table :gpcs do |t|
-        t.integer :champion_id
-        t.integer :game_id
-        t.integer :player_id
+        t.references :champion, null: false, foreign_key: true
+        t.references :game, null: false, foreign_key: true
+        t.references :summoner, null: false, foreign_key: true
+
         t.timestamps
       end
     end
