@@ -51,3 +51,5 @@ gem 'devise_token_auth'
 gem 'typhoeus'
 
 gem 'dotenv-rails'
+
+gem 'ruby-limiter', require: 'limiter'

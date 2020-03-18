@@ -14,16 +14,20 @@ module Lol
 
             def get_all(service)
                 res = self.data_dd.perform_request(service)
+                data = res["data"]
+
                 case service
                 when :items
-                    @parser = Lol::DataDragon::Parsers::ItemParser.new
+                    @parser = Lol::Parsers::ItemParser.new
                 when :champions
-                    @parser = Lol::DataDragon::Parsers::ChampionParser.new
+                    @parser = Lol::Parsers::ChampionParser.new
                 when :summoner_spells
-                    @parser = Lol::DataDragon::Parsers::SummonerParser.new
+                    @parser = Lol::Parsers::SpellParser.new
+                when :masteries
+                    @parser = Lol::Parsers::MasteryParser.new
                 end
-                
-                self.parser.parse_dd_response(res)
+
+                self.parser.parse_dd_response(data)
             end
     
             def latest_dd

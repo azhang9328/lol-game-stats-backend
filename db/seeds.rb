@@ -5,8 +5,3 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-newgame = Game.create
-newchamp = Champion.create
-newplayer = Player.create
-newgpc = Gpc.create(champion_id: newchamp.id, game_id: newgame.id, player_id: newplayer.id)

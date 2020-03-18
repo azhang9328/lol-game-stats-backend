@@ -5,6 +5,7 @@ module Lol
                 :items => "item.json",
                 :champions => "championFull.json",
                 :summoner_spells => "summoner.json",
+                :masteries => "runesReforged.json"
             }.freeze
 
             attr_reader :base_data_url

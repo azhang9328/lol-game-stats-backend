@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_13_005059) do
+ActiveRecord::Schema.define(version: 2020_03_18_042241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,13 @@ ActiveRecord::Schema.define(version: 2020_03_13_005059) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "gpcs_spells", force: :cascade do |t|
+    t.bigint "gpc_id", null: false
+    t.bigint "spell_id", null: false
+    t.index ["gpc_id"], name: "index_gpcs_spells_on_gpc_id"
+    t.index ["spell_id"], name: "index_gpcs_spells_on_spell_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "riot_id"
@@ -73,12 +80,17 @@ ActiveRecord::Schema.define(version: 2020_03_13_005059) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "players", force: :cascade do |t|
+  create_table "passives", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.jsonb "image"
+    t.integer "champion_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "skills", force: :cascade do |t|
+  create_table "spells", force: :cascade do |t|
+    t.bigint "champion_id"
     t.string "name"
     t.string "riot_id"
     t.string "description"
@@ -86,13 +98,18 @@ ActiveRecord::Schema.define(version: 2020_03_13_005059) do
     t.integer "maxrank"
     t.integer "cooldown", default: [], array: true
     t.integer "cost", default: [], array: true
-    t.integer "effect", default: [], array: true
-    t.string "vars", default: [], array: true
-    t.string "tags", default: [], array: true
+    t.jsonb "effect"
+    t.jsonb "vars"
     t.string "costType"
     t.integer "range", default: [], array: true
     t.jsonb "image"
     t.string "resource"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["champion_id"], name: "index_spells_on_champion_id"
+  end
+
+  create_table "summoners", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -120,4 +137,6 @@ ActiveRecord::Schema.define(version: 2020_03_13_005059) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "gpcs_spells", "gpcs"
+  add_foreign_key "gpcs_spells", "spells"
 end

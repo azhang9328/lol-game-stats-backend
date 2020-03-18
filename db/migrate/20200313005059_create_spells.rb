@@ -1,6 +1,7 @@
-class CreateSkills < ActiveRecord::Migration[6.0]
+class CreateSpells < ActiveRecord::Migration[6.0]
   def change
-    create_table :skills do |t|
+    create_table :spells do |t|
+      t.references :champion
       t.string :name
       t.string :riot_id
       t.string :description
@@ -8,9 +9,8 @@ class CreateSkills < ActiveRecord::Migration[6.0]
       t.integer :maxrank
       t.integer :cooldown, array: true, default: []
       t.integer :cost, array: true, default: []
-      t.integer :effect, array: true, default: []
-      t.string :vars, array: true, default: []
-      t.string :tags, array: true, default: []
+      t.jsonb :effect
+      t.jsonb :vars
       t.string :costType
       t.integer :range, array: true, default: []
       t.jsonb :image
