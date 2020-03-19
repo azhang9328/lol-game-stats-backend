@@ -1,5 +1,5 @@
 class Game < ApplicationRecord
-    has_many :gpc
-    has_many :champions, through: :gpc 
-    has_many :summoners, through: :gpc
+    has_many :gpcs
+    has_many :champions, through: :gpcs 
+    has_many :summoners, through: :gpcs
 end

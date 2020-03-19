@@ -4,7 +4,7 @@ module Lol
             def parse_dd_response(runesReforged)
                 runesReforged.each do |rune_path|
                     rr_slots = rune_path.extract!("slots")["slots"]
-                    rr_riot_id = rune_path.extract!("id")
+                    rr_riot_id = rune_path.extract!("id")["id"]
                     temp_rune_path = rune_path.except("key")
 
                     new_rune = Rune.new(temp_rune_path)

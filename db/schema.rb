@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_045639) do
+ActiveRecord::Schema.define(version: 2020_03_18_211425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,12 @@ ActiveRecord::Schema.define(version: 2020_03_18_045639) do
   end
 
   create_table "games", force: :cascade do |t|
+    t.string "season"
+    t.string "queue"
+    t.bigint "riot_id"
+    t.string "gameVersion"
+    t.string "region"
+    t.integer "gameDuration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -42,11 +48,74 @@ ActiveRecord::Schema.define(version: 2020_03_18_045639) do
     t.bigint "champion_id", null: false
     t.bigint "game_id", null: false
     t.bigint "summoner_id", null: false
+    t.integer "participantId"
+    t.string "team"
+    t.boolean "win"
+    t.integer "longestTimeSpentLiving"
+    t.integer "kills"
+    t.integer "deaths"
+    t.integer "assists"
+    t.integer "largestKillingSpree"
+    t.integer "largestMultiKill"
+    t.integer "killingSprees"
+    t.integer "doubleKills"
+    t.integer "tripleKills"
+    t.integer "quadraKills"
+    t.integer "pentaKills"
+    t.integer "unrealKills"
+    t.integer "totalDamageDealt"
+    t.integer "magicDamageDealt"
+    t.integer "physicalDamageDealt"
+    t.integer "trueDamageDealt"
+    t.integer "largestCriticalStrike"
+    t.integer "totalDamageDealtToChampions"
+    t.integer "magicDamageDealtToChampions"
+    t.integer "physicalDamageDealtToChampions"
+    t.integer "trueDamageDealtToChampions"
+    t.integer "totalHeal"
+    t.integer "damageSelfMitigated"
+    t.integer "damageDealtToObjectives"
+    t.integer "damageDealtToTurrets"
+    t.integer "visionScore"
+    t.integer "timeCCingOthers"
+    t.integer "totalDamageTaken"
+    t.integer "magicalDamageTaken"
+    t.integer "physicalDamageTaken"
+    t.integer "trueDamageTaken"
+    t.integer "goldEarned"
+    t.integer "goldSpent"
+    t.integer "turretKills"
+    t.integer "inhibitorKills"
+    t.integer "totalMinionsKilled"
+    t.integer "neutralMinionsKilled"
+    t.integer "neutralMinionsKilledTeamJungle"
+    t.integer "neutralMinionsKilledEnemyJungle"
+    t.integer "totalTimeCrowdControlDealt"
+    t.integer "champLevel"
+    t.integer "visionWardsBoughtInGame"
+    t.integer "sightWardsBoughtInGame"
+    t.integer "wardsPlaced"
+    t.integer "wardsKilled"
+    t.boolean "firstBloodKill"
+    t.boolean "firstBloodAssist"
+    t.boolean "firstTowerKill"
+    t.boolean "firstTowerAssist"
+    t.string "lane"
+    t.string "role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["champion_id"], name: "index_gpcs_on_champion_id"
     t.index ["game_id"], name: "index_gpcs_on_game_id"
     t.index ["summoner_id"], name: "index_gpcs_on_summoner_id"
+  end
+
+  create_table "gpcs_items", force: :cascade do |t|
+    t.bigint "gpc_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["gpc_id"], name: "index_gpcs_items_on_gpc_id"
+    t.index ["item_id"], name: "index_gpcs_items_on_item_id"
   end
 
   create_table "gpcs_runes", force: :cascade do |t|
@@ -132,6 +201,12 @@ ActiveRecord::Schema.define(version: 2020_03_18_045639) do
   end
 
   create_table "summoners", force: :cascade do |t|
+    t.integer "profileIconId"
+    t.string "name"
+    t.string "puuid"
+    t.integer "summonerLevel"
+    t.string "accountId"
+    t.string "summonerId"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -162,6 +237,8 @@ ActiveRecord::Schema.define(version: 2020_03_18_045639) do
   add_foreign_key "gpcs", "champions"
   add_foreign_key "gpcs", "games"
   add_foreign_key "gpcs", "summoners"
+  add_foreign_key "gpcs_items", "gpcs"
+  add_foreign_key "gpcs_items", "items"
   add_foreign_key "gpcs_runes", "gpcs"
   add_foreign_key "gpcs_runes", "runes"
   add_foreign_key "gpcs_spells", "gpcs"

@@ -3,7 +3,7 @@ module Lol
         class Client    
             BASE_DD_URL = "https://ddragon.leagueoflegends.com"
 
-            attr_accessor :language, :dd_version, :data_dd, :parser, :asset_dd
+            attr_accessor :language, :dd_version, :data_dd, :parser
             attr_reader :dd_vers_url
     
             def initialize(language = "en_US", dd_version = "10.5.1")
@@ -11,7 +11,6 @@ module Lol
                 @dd_version = dd_version
                 @dd_vers_url = BASE_DD_URL + "/cdn/#{self.dd_version}"
                 @data_dd = Lol::DataDragon::DataRequest.new(@dd_vers_url + "/data/#{self.language}/")
-                @asset_dd = Lol::DataDragon::AssetRequest.new(@dd_vers_url + "/img/")
             end
 
             def get_data(service)
