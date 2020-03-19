@@ -21,6 +21,14 @@ module Lol
                 parser = Lol::Parsers::SummonerParser.new
                 summoners = parser.summoners_from_match(summoners)
 
+                game_team_info = res.extract!("teams")["teams"]
+                #shift winning team to game instead of on each gpc?
+                bans = game_team_info.map do |team|
+                    team["bans"].map do |ban|
+                        ban["championId"]
+                    end
+                end.flatten
+
                 game_info = res.extract!("seasonId", "queueId", "gameId", "gameVersion", "platformId", "gameDuration")
                 game_info = {
                     "season" => SEASONS[game_info["seasonId"]],
@@ -28,11 +36,10 @@ module Lol
                     "riot_id" => game_info["gameId"],
                     "gameVersion" => game_info["gameVersion"],
                     "region" => game_info["platformId"],
-                    "gameDuration" => game_info["gameDuration"]
+                    "gameDuration" => game_info["gameDuration"],
+                    "champion_bans" => bans
                 }
-                game_team_info = res.extract!("teams")["teams"]
-                #mainly useless? does have ban info though
-                # [{"teamId"=>100, "win"=>"Fail", "firstBlood"=>false, "firstTower"=>false, "firstInhibitor"=>false, "firstBaron"=>false, "firstDragon"=>false, "firstRiftHerald"=>false, "towerKills"=>3, "inhibitorKills"=>0, "baronKills"=>0, "dragonKills"=>0, "vilemawKills"=>0, "riftHeraldKills"=>0, "dominionVictoryScore"=>0, "bans"=>[{"championId"=>240, "pickTurn"=>1}, {"championId"=>350, "pickTurn"=>2}, {"championId"=>245, "pickTurn"=>3}, {"championId"=>64, "pickTurn"=>4}, {"championId"=>21, "pickTurn"=>5}]}, {"teamId"=>200, "win"=>"Win", "firstBlood"=>true, "firstTower"=>true, "firstInhibitor"=>false, "firstBaron"=>true, "firstDragon"=>true, "firstRiftHerald"=>true, "towerKills"=>5, "inhibitorKills"=>0, "baronKills"=>1, "dragonKills"=>3, "vilemawKills"=>0, "riftHeraldKills"=>2, "dominionVictoryScore"=>0, "bans"=>[{"championId"=>122, "pickTurn"=>6}, {"championId"=>523, "pickTurn"=>7}, {"championId"=>235, "pickTurn"=>8}, {"championId"=>107, "pickTurn"=>9}, {"championId"=>350, "pickTurn"=>10}]}]
+
                 game_participants_info = res["participants"]
 
                 new_game = Game.create(game_info)

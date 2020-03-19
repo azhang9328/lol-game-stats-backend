@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration[6.0]
       t.string :gameVersion
       t.string :region
       t.integer :gameDuration
+      t.integer :bans, array: true, default: []
 
       t.timestamps
     end

@@ -21,9 +21,15 @@ stat_perks = [
 stat_perks.each do |stat|
     Rune.create(stat)
 end
+puts "stat perks added"
 
 client = Lol::Client.new
 client.dd_get(:champions)
+puts "champions added"
 client.dd_get(:items)
+puts "items added"
 client.dd_get(:summoner_spells)
+puts "summoner spells added"
 client.dd_get(:runes)
+puts "runes added"
+
