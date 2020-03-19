@@ -6,7 +6,7 @@ class CreateGpcs < ActiveRecord::Migration[6.0]
         t.references :summoner, null: false, foreign_key: true
         t.integer :participantId
         t.string :team
-        t.boolean :win
+        # t.boolean :win
         t.integer :longestTimeSpentLiving
         t.integer :kills
         t.integer :deaths
@@ -33,7 +33,6 @@ class CreateGpcs < ActiveRecord::Migration[6.0]
         t.integer :damageDealtToObjectives
         t.integer :damageDealtToTurrets
         t.integer :visionScore
-        t.integer :timeCCingOthers
         t.integer :totalDamageTaken
         t.integer :magicalDamageTaken
         t.integer :physicalDamageTaken
@@ -46,7 +45,6 @@ class CreateGpcs < ActiveRecord::Migration[6.0]
         t.integer :neutralMinionsKilled
         t.integer :neutralMinionsKilledTeamJungle
         t.integer :neutralMinionsKilledEnemyJungle
-        t.integer :totalTimeCrowdControlDealt
         t.integer :champLevel
         t.integer :visionWardsBoughtInGame
         t.integer :sightWardsBoughtInGame

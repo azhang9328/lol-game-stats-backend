@@ -40,7 +40,8 @@ ActiveRecord::Schema.define(version: 2020_03_18_211425) do
     t.string "gameVersion"
     t.string "region"
     t.integer "gameDuration"
-    t.integer "bans", default: [], array: true
+    t.integer "champion_bans", default: [], array: true
+    t.string "winner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -51,7 +52,6 @@ ActiveRecord::Schema.define(version: 2020_03_18_211425) do
     t.bigint "summoner_id", null: false
     t.integer "participantId"
     t.string "team"
-    t.boolean "win"
     t.integer "longestTimeSpentLiving"
     t.integer "kills"
     t.integer "deaths"

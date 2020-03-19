@@ -12,11 +12,11 @@ module Lol
                     new_rune.rune_type = "path"
                     new_rune.save
 
-                    rune_slots(rr_slots)
+                    rune_slots(rr_slots, new_rune.name)
                 end
             end
 
-            def rune_slots(rr_slots)
+            def rune_slots(rr_slots, path_name)
                 rr_slots.each_with_index do |runes, index|
                     runes = runes["runes"]
                     runes.each do |rune|
@@ -25,7 +25,7 @@ module Lol
 
                         new_rune = Rune.new(temp_rune)
                         new_rune.riot_id = riot_id
-                        index == 0 ? new_rune.rune_type = "keystone" : new_rune.rune_type = "slot #{index}"
+                        index == 0 ? new_rune.rune_type = "#{path_name} keystone" : new_rune.rune_type = "#{path_name} slot #{index}"
                         new_rune.save
                     end
                 end
