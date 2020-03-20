@@ -6,7 +6,6 @@ class CreateGpcs < ActiveRecord::Migration[6.0]
         t.references :summoner, null: false, foreign_key: true
         t.integer :participantId
         t.string :team
-        # t.boolean :win
         t.integer :longestTimeSpentLiving
         t.integer :kills
         t.integer :deaths

@@ -18,6 +18,8 @@ class GameSerializer < ActiveModel::Serializer
                     id: gpc.summoner.id,
                     name: gpc.summoner.name
                 },
+                lane: gpc.lane,
+                role: gpc.role,
                 team: gpc.team,
                 kills: gpc.kills,
                 deaths: gpc.deaths,
